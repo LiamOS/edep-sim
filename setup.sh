@@ -19,7 +19,7 @@
 # source thisroot.sh
 # source geant4.sh
 # cd the-build-directory
-# cmake -DCMAKE_INSTALL_PREFIX=the-install-directory the-edep-sim-directory 
+# cmake -DCMAKE_INSTALL_PREFIX=the-install-directory the-edep-sim-directory
 # make
 # make install
 
@@ -27,7 +27,8 @@
 # Try to setup root.  ROOT installs thisroot.sh in the bin directory
 # to setup the environment.  The first "thisroot.sh" in the path will
 # define the root that is used.
-. thisroot.sh >& /dev/null
+#. thisroot.sh >& /dev/null
+root-config --version >& /dev/null
 if [ $? != 0 ]; then
     echo ROOT not available.
 fi
@@ -35,7 +36,7 @@ fi
 # Try to setup geant4.  GEANT4 installs geant4.sh in the bin directory
 # to setup the environment.  The first "geant4.sh" in the path will
 # define the geant that is used.
-. geant4.sh >& /dev/null
+geant4-config --version >& /dev/null
 if [ $? != 0 ]; then
     echo GEANT not available.
 fi
@@ -84,7 +85,7 @@ ___path_prepend () {
 ___path_remove ()  {
     export $1=$(eval echo -n \$$1 | \
 	awk -v RS=: -v ORS=: '$0 != "'$2'"' | \
-	sed 's/:$//'); 
+	sed 's/:$//');
 }
 
 ___path_prepend PATH ${EDEP_ROOT}/${EDEP_TARGET}/bin
